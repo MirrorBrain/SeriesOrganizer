@@ -26,11 +26,8 @@ public class Logger {
 	/** The Constant date format. */
 	private static final SimpleDateFormat dmy = new SimpleDateFormat("yyyy_MM_dd");
 
-	/** The log file name. */
-	private static String logFileName;
-
 	/** The Constant logName. */
-	private static final String logName = "SeriesOrganizer_";
+	private static String logName = "SeriesOrganizer_";
 
 	/** The logs. */
 	private static ArrayList<Log> logs = new ArrayList<Log>();
@@ -45,11 +42,11 @@ public class Logger {
 	 *            the path to LOG
 	 */
 	public Logger(String path) {
-		logFileName = new String(path + "/" + logName + dmy.format(new Date()) + ".log");
+		logName = new String(path + "/" + logName + dmy.format(new Date()) + ".log");
 
 		try {
 			createLogFile();
-			bw = new BufferedWriter(new FileWriter(logFileName, true));
+			bw = new BufferedWriter(new FileWriter(logName, true));
 
 			bw.write("****************************** Execution Start ******************************\n");
 			bw.flush();
@@ -92,7 +89,7 @@ public class Logger {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	private void createLogFile() throws IOException {
-		Path path = Paths.get(logFileName);
+		Path path = Paths.get(logName);
 
 		Files.createDirectories(path.getParent());
 

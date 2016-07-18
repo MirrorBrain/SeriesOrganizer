@@ -19,21 +19,21 @@ import tools.Series;
 public class SeriesOrganizer {
 
 	/** The files. */
-	private static File[]	files;
-	/** The ini file. */
-	private static File		iniFile	= new File("SeriesOrganizer.ini");
+	private static File[] files;
 
 	/** The log. */
 	private static Logger log;
 
+	/** The ini file. */
+	private static String	iniFile	= "SeriesOrganizer.ini";
 	/** The logging. */
-	private static String logging;
-
+	private static String	logging;
 	/** Where to archive. */
-	private static String output;
-
+	private static String	output;
 	/** The path to your files. */
-	private static String path;
+	private static String	path;
+	/** The ext. */
+	protected static String	ext;
 
 	/**
 	 * List files.
@@ -41,7 +41,7 @@ public class SeriesOrganizer {
 	private static void listFiles() {
 		files = new File(path).listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
-				return name.endsWith(".mkv");
+				return name.endsWith(ext);
 			}
 		});
 
@@ -71,7 +71,7 @@ public class SeriesOrganizer {
 	 * Organize files.
 	 */
 	private static void organizeFiles() {
-		Series s = new Series(iniFile, output);
+		Series s = new Series(iniFile, output, log);
 
 		for (int i = 0; i < files.length; i++) {
 			s.archive(files[i]);
@@ -82,12 +82,12 @@ public class SeriesOrganizer {
 	 * Read ini.
 	 */
 	private static void readIni() {
-		IniFile ini = new IniFile("");
-	
+		IniFile ini = new IniFile(iniFile);
+
 		path = ini.path();
 		output = ini.output();
 		logging = ini.log();
-	
+
 		log = new Logger(logging);
 	}
 
