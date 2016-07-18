@@ -23,55 +23,17 @@ public class SeriesOrganizer {
 	/** The ini file. */
 	private static File		iniFile	= new File("SeriesOrganizer.ini");
 
-	/** The path to your files. */
-	private static String path;
-
-	/** Where to archive. */
-	private static String output;
+	/** The log. */
+	private static Logger log;
 
 	/** The logging. */
 	private static String logging;
 
-	/** The log. */
-	private static Logger log;
+	/** Where to archive. */
+	private static String output;
 
-	/**
-	 * The main method.
-	 *
-	 * @param args
-	 *            the arguments
-	 */
-	public static void main(String[] args) {
-		readIni();
-
-		listFiles();
-
-		organizeFiles();
-	}
-
-	/**
-	 * Read ini.
-	 */
-	private static void readIni() {
-		IniFile ini = new IniFile("");
-
-		path = ini.path();
-		output = ini.output();
-		logging = ini.log();
-
-		log = new Logger(logging);
-	}
-
-	/**
-	 * Organize files.
-	 */
-	private static void organizeFiles() {
-		Series s = new Series(iniFile, output);
-
-		for (int i = 0; i < files.length; i++) {
-			s.archive(files[i]);
-		}
-	}
+	/** The path to your files. */
+	private static String path;
 
 	/**
 	 * List files.
@@ -89,6 +51,44 @@ public class SeriesOrganizer {
 		}
 
 		log.add(Log.info("file listed"));
+	}
+
+	/**
+	 * The main method.
+	 *
+	 * @param args
+	 *            the arguments
+	 */
+	public static void main(String[] args) {
+		readIni();
+
+		listFiles();
+
+		organizeFiles();
+	}
+
+	/**
+	 * Organize files.
+	 */
+	private static void organizeFiles() {
+		Series s = new Series(iniFile, output);
+
+		for (int i = 0; i < files.length; i++) {
+			s.archive(files[i]);
+		}
+	}
+
+	/**
+	 * Read ini.
+	 */
+	private static void readIni() {
+		IniFile ini = new IniFile("");
+	
+		path = ini.path();
+		output = ini.output();
+		logging = ini.log();
+	
+		log = new Logger(logging);
 	}
 
 }

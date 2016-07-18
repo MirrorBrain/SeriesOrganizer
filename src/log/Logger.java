@@ -23,17 +23,17 @@ public class Logger {
 	/** The BufferedWriter. */
 	private static BufferedWriter bw;
 
+	/** The Constant date format. */
+	private static final SimpleDateFormat dmy = new SimpleDateFormat("yyyy_MM_dd");
+
 	/** The log file name. */
 	private static String logFileName;
-
-	/** The logs. */
-	private static ArrayList<Log> logs = new ArrayList<Log>();
 
 	/** The Constant logName. */
 	private static final String logName = "SeriesOrganizer_";
 
-	/** The Constant date format. */
-	private static final SimpleDateFormat dmy = new SimpleDateFormat("yyyy_MM_dd");
+	/** The logs. */
+	private static ArrayList<Log> logs = new ArrayList<Log>();
 
 	/** The boolean variables. */
 	private boolean write = true;

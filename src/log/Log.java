@@ -15,13 +15,13 @@ public class Log {
 
 	/** The Constant ERROR. */
 	public static final int	ERROR	= -1;
-	/** The Constant INFOS. */
-	public static final int	INFOS	= 0;
-	/** The Constant WARNING. */
-	public static final int	WARNING	= 1;
-
 	/** The Constant date format. */
 	static final SimpleDateFormat hms = new SimpleDateFormat("HH:mm:ss");
+	/** The Constant INFOS. */
+	public static final int	INFOS	= 0;
+
+	/** The Constant WARNING. */
+	public static final int	WARNING	= 1;
 
 	/**
 	 * Instantiates an error log.
@@ -56,14 +56,14 @@ public class Log {
 		return new Log(WARNING, m);
 	}
 
-	/** The type. */
-	private int type;
-
 	/** The date. */
 	private Date date;
 
 	/** The message. */
 	private String message;
+
+	/** The type. */
+	private int type;
 
 	/**
 	 * Instantiates a new log.

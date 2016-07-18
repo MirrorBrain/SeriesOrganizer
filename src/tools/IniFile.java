@@ -35,12 +35,12 @@ public class IniFile {
 	}
 
 	/**
-	 * Path.
+	 * Log.
 	 *
 	 * @return the string
 	 */
-	public String path() {
-		return ini.getProperty("files");
+	public String log() {
+		return ini.getProperty("log");
 	}
 
 	/**
@@ -53,12 +53,12 @@ public class IniFile {
 	}
 
 	/**
-	 * Log.
+	 * Path.
 	 *
 	 * @return the string
 	 */
-	public String log() {
-		return ini.getProperty("log");
+	public String path() {
+		return ini.getProperty("files");
 	}
 
 }
