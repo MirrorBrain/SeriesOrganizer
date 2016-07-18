@@ -79,16 +79,16 @@ public class SeriesOrganizer {
 	private static void listFiles() {
 		files = new File(path).listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
-				return name.endsWith(".sas");
+				return name.endsWith(".mkv");
 			}
 		});
 
 		if (files.length == 0) {
-			log.add(Log.warning("File list is empty"));
+			log.add(Log.warning("file list is empty"));
 			return;
 		}
 
-		log.add(Log.info("SQL file listed"));
+		log.add(Log.info("file listed"));
 	}
 
 }

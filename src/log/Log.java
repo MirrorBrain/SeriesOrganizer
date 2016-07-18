@@ -1,8 +1,7 @@
 /*
- *	Some file written fast to kill some time... Do whatever you want with it ;)
- * 	But don't forget to mention my name somewhere at least !
- * 
- *  @author Maël Nogues mael.nogues@outlook.com
+ * Some file written fast to kill some time... Do whatever you want with it ;)
+ * But don't forget to mention my name somewhere at least !
+ * @author Maël Nogues mael.nogues@outlook.com
  */
 package log;
 
@@ -14,8 +13,12 @@ import java.util.Date;
  */
 public class Log {
 
-	/** The Constant for log level. */
-	public static final int ERROR = -1, INFOS = 0, WARNING = 1;
+	/** The Constant ERROR. */
+	public static final int	ERROR	= -1;
+	/** The Constant INFOS. */
+	public static final int	INFOS	= 0;
+	/** The Constant WARNING. */
+	public static final int	WARNING	= 1;
 
 	/** The Constant date format. */
 	static final SimpleDateFormat hms = new SimpleDateFormat("HH:mm:ss");
@@ -111,17 +114,17 @@ public class Log {
 	private String getTypeString() {
 		String ret = "";
 		switch (type) {
-		case INFOS:
-			ret = "INFOS";
-			break;
+			case INFOS:
+				ret = "INFOS";
+				break;
 
-		case WARNING:
-			ret = "WARNING";
-			break;
+			case WARNING:
+				ret = "WARNING";
+				break;
 
-		case ERROR:
-			ret = "ERROR";
-			break;
+			case ERROR:
+				ret = "ERROR";
+				break;
 		}
 		return ret;
 	}
@@ -137,7 +140,6 @@ public class Log {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
