@@ -11,6 +11,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -23,9 +26,9 @@ import log.Logger;
 public class Series {
 
 	/** The path to series. */
-	private String			path;
+	private String		path;
 	/** The Series list. */
-	private Stream<String>	SeriesList;
+	private String[]	SeriesList;
 
 	/** The log. */
 	private Logger log;
@@ -46,11 +49,11 @@ public class Series {
 
 		if (SeriesList == null) {
 			this.log.add(Log.error("ini file not readable, no series to archive"));
-		} else if (SeriesList.count() == 0) {
+		} else if (SeriesList.length == 0) {
 			this.log.add(Log.error("ini file empty, no series to archive"));
 		}
 
-		this.path = path;
+		this.path = path + "\\";
 	}
 
 	/**
@@ -60,17 +63,23 @@ public class Series {
 	 *            the file
 	 */
 	public void archive(File file) {
-		SeriesList.forEach(k -> {
-			if (file.getName().contains(k)) {
-				if (file.renameTo(new File(path + k + "\\" + file.getName()))) {
-					log.add(Log.info(file.getName() + " archived successfully"));
-				} else {
-					log.add(Log.info(file.getName() + " not archived correctly"));
+		for (int i = 0; i < SeriesList.length; i++) {
+			if (file.getName().contains(SeriesList[i])) {
+				try {
+					if (Files.move(file.toPath(), new File(path + SeriesList[i] + "\\" + file.getName()).toPath(),
+							StandardCopyOption.REPLACE_EXISTING) != null) {
+						log.add(Log.info(file.getName() + " archived successfully"));
+					} else {
+						log.add(Log.info(file.getName() + " not archived correctly"));
+					}
+				} catch (IOException e) {
+					log.add(Log.info(file.getName() + " not archived correctly : error during copy"));
+					e.printStackTrace();
 				}
 
 				return;
 			}
-		});
+		}
 
 		log.add(Log.error("No series where found in your list to match the file \"" + file.getName() + "\""));
 	}
@@ -82,19 +91,22 @@ public class Series {
 	 *            the ini file
 	 * @return the string[]
 	 */
-	private Stream<String> parse(String iniFile) {
-		Stream<String> result = null;
+	private String[] parse(String iniFile) {
+		String[] result = null;
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(iniFile)));
-
-			result = br.lines();
-
+			result = new String[(int) br.lines().count()];
 			br.close();
+
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(iniFile)));
+
+			for (int i = 0; i < result.length; i++)
+				result[i] = br.readLine();
 		} catch (FileNotFoundException e) {
-			log.add(Log.error(""));
+			log.add(Log.error("Ini file not found"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.add(Log.error("Ini file not readable"));
 		}
 
 		return result;

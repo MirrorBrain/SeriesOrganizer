@@ -65,6 +65,8 @@ public class SeriesOrganizer {
 		listFiles();
 
 		organizeFiles();
+
+		log.close();
 	}
 
 	/**
