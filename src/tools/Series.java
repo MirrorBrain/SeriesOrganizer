@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import log.Log;
 import log.Logger;
@@ -21,9 +23,9 @@ import log.Logger;
 public class Series {
 
 	/** The path to series. */
-	private String		path;
+	private String			path;
 	/** The Series list. */
-	private String[]	SeriesList;
+	private Stream<String>	SeriesList;
 
 	/** The log. */
 	private Logger log;
@@ -44,8 +46,7 @@ public class Series {
 
 		if (SeriesList == null) {
 			this.log.add(Log.error("ini file not readable, no series to archive"));
-			SeriesList = new String[0];
-		} else if (SeriesList.length == 0) {
+		} else if (SeriesList.count() == 0) {
 			this.log.add(Log.error("ini file empty, no series to archive"));
 		}
 
@@ -59,9 +60,9 @@ public class Series {
 	 *            the file
 	 */
 	public void archive(File file) {
-		for (int i = 0; i < SeriesList.length; i++) {
-			if (file.getName().contains(SeriesList[i])) {
-				if (file.renameTo(new File(path + SeriesList[i] + "\\" + file.getName()))) {
+		SeriesList.forEach(k -> {
+			if (file.getName().contains(k)) {
+				if (file.renameTo(new File(path + k + "\\" + file.getName()))) {
 					log.add(Log.info(file.getName() + " archived successfully"));
 				} else {
 					log.add(Log.info(file.getName() + " not archived correctly"));
@@ -69,7 +70,7 @@ public class Series {
 
 				return;
 			}
-		}
+		});
 
 		log.add(Log.error("No series where found in your list to match the file \"" + file.getName() + "\""));
 	}
@@ -81,13 +82,13 @@ public class Series {
 	 *            the ini file
 	 * @return the string[]
 	 */
-	private String[] parse(String iniFile) {
-		String[] result = null;
+	private Stream<String> parse(String iniFile) {
+		Stream<String> result = null;
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(iniFile)));
 
-			result = (String[]) br.lines().toArray();
+			result = br.lines();
 
 			br.close();
 		} catch (FileNotFoundException e) {

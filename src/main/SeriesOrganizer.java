@@ -71,7 +71,7 @@ public class SeriesOrganizer {
 	 * Organize files.
 	 */
 	private static void organizeFiles() {
-		Series s = new Series(iniFile, output, log);
+		Series s = new Series("series", output, log);
 
 		for (int i = 0; i < files.length; i++) {
 			s.archive(files[i]);
