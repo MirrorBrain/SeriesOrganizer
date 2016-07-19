@@ -86,6 +86,7 @@ public class SeriesOrganizer {
 
 		path = ini.path();
 		output = ini.output();
+		ext = ini.ext();
 		logging = ini.log();
 
 		log = new Logger(logging);

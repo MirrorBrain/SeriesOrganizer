@@ -61,4 +61,13 @@ public class IniFile {
 		return ini.getProperty("files");
 	}
 
+	/**
+	 * Ext.
+	 *
+	 * @return the string
+	 */
+	public String ext() {
+		return ini.getProperty("format");
+	}
+
 }
