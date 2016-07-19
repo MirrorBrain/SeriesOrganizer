@@ -36,6 +36,7 @@ public class Series {
 	 * @param path
 	 *            the path to series
 	 * @param log
+	 *            the log
 	 */
 	public Series(String iniFile, String path, Logger log) {
 		SeriesList = parse(iniFile);
