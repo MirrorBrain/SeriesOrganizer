@@ -13,6 +13,7 @@ The series name in first, followed by the season after a S, followed by the epis
 It will recognize the name of the serie and search for the season after the serie's name and between a S and a E. The rest of the name can be whatever you want, as long as the previous naming rules are followed it will arrange your series correctly.
 
 You will have a result like this :
+
 ![Screen](http://zupimages.net/up/16/31/v2r2.png)
 
 With all your series organized by folders and by season. 
