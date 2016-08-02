@@ -1,6 +1,10 @@
 /*
- * Some file written fast to kill some time... Do whatever you want with it ;)
- * But don't forget to mention my name somewhere at least !
+ * The GNU General Public License does not permit incorporating your program
+ * into proprietary programs. If your program is a subroutine library, you may
+ * consider it more useful to permit linking proprietary applications with the
+ * library. If this is what you want to do, use the GNU Lesser General Public
+ * License instead of this License. But first, please read
+ * <http://www.gnu.org/philosophy/why-not-lgpl.html>.
  * @author Maël Nogues mael.nogues@outlook.com
  */
 package main;
@@ -39,11 +43,7 @@ public class SeriesOrganizer {
 	 * List files.
 	 */
 	private static void listFiles() {
-		files = new File(path).listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return name.endsWith(ext);
-			}
-		});
+		files = new File(path).listFiles((FilenameFilter) (dir, name) -> name.endsWith(ext));
 
 		if (files.length == 0) {
 			log.add(Log.warning("file list is empty"));
@@ -75,9 +75,8 @@ public class SeriesOrganizer {
 	private static void organizeFiles() {
 		Series s = new Series("series", output, log);
 
-		for (int i = 0; i < files.length; i++) {
-			s.archive(files[i]);
-		}
+		for (File file : files)
+			s.archive(file);
 	}
 
 	/**

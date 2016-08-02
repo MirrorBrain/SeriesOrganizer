@@ -1,6 +1,10 @@
 /*
- * Some file written fast to kill some time... Do whatever you want with it ;)
- * But don't forget to mention my name somewhere at least !
+ * The GNU General Public License does not permit incorporating your program
+ * into proprietary programs. If your program is a subroutine library, you may
+ * consider it more useful to permit linking proprietary applications with the
+ * library. If this is what you want to do, use the GNU Lesser General Public
+ * License instead of this License. But first, please read
+ * <http://www.gnu.org/philosophy/why-not-lgpl.html>.
  * @author Maël Nogues mael.nogues@outlook.com
  */
 package tools;
@@ -44,11 +48,10 @@ public class Series {
 		SeriesList = parse(iniFile);
 		this.log = log;
 
-		if (SeriesList == null) {
+		if (SeriesList == null)
 			this.log.add(Log.error("ini file not readable, no series to archive"));
-		} else if (SeriesList.length == 0) {
+		else if (SeriesList.length == 0)
 			this.log.add(Log.error("ini file empty, no series to archive"));
-		}
 
 		this.path = path + "\\";
 	}
@@ -60,15 +63,14 @@ public class Series {
 	 *            the file
 	 */
 	public void archive(File file) {
-		for (int i = 0; i < SeriesList.length; i++) {
-			if (file.getName().contains(SeriesList[i])) {
+		for (String element : SeriesList)
+			if (file.getName().contains(element)) {
 				try {
-					if (Files.move(file.toPath(), new File(path + SeriesList[i] + "\\" + file.getName()).toPath(),
-							StandardCopyOption.REPLACE_EXISTING) != null) {
+					if (Files.move(file.toPath(), new File(path + element + "\\" + file.getName()).toPath(),
+							StandardCopyOption.REPLACE_EXISTING) != null)
 						log.add(Log.info(file.getName() + " archived successfully"));
-					} else {
+					else
 						log.add(Log.info(file.getName() + " not archived correctly"));
-					}
 				} catch (IOException e) {
 					log.add(Log.info(file.getName() + " not archived correctly : error during copy"));
 					e.printStackTrace();
@@ -76,7 +78,6 @@ public class Series {
 
 				return;
 			}
-		}
 
 		log.add(Log.error("No series where found in your list to match the file \"" + file.getName() + "\""));
 	}
