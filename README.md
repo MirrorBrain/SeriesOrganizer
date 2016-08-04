@@ -20,4 +20,8 @@ With all your series organized by folders and by season.
 
 For this tool to work, you just need to have the 2 ini files (SeriesOrganizer.ini and series, without any extensions) examples of which can be found with the sources. Put these files and complete them as you will use. Then you just need to double click on the .jar file and your series will be organized.
 
+Your install folder should resemble the following capture :
+
+![Install_Folder](http://zupimages.net/up/16/31/4hzh.png)
+
 Enjoy the simplicity :)
